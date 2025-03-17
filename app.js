@@ -1,19 +1,29 @@
 let inputAmigo = document.getElementById("amigo");
 let Amigos = [];
-let listaAmigos = document.getElementById("listaAmigos")
+let listaAmigos = document.getElementById("listaAmigos");
+let componenteResultado = document.getElementById("resultado");
 
-function sortearAmigo(){
+function atualizarLista() {
+  listaAmigos.innerHTML = "";
+
+  for (let i = 0; i < Amigos.length; i++) {
+    let componenteLista = document.createElement(`li`);
+    componenteLista.textContent = Amigos[i];
+    listaAmigos.appendChild(componenteLista);
+  }
+}
+
+function sortearAmigo() {
   let indicePessoaSorteada = Math.floor(Math.random() * Amigos.length);
   let pessoaSorteada = Amigos[indicePessoaSorteada];
 
-  adicionarLista(pessoaSorteada, "resultado");
-}
+  listaAmigos.innerHTML = "";
 
-function adicionarLista(conteudo, id) {
-  let componenteLista = document.createElement(id);
-  componenteLista.textContent = conteudo;
-  listaAmigos.appendChild(componenteLista);
-  inputAmigo.value = "";
+  let componenteListaResultado = document.createElement(`li`);
+  componenteListaResultado.textContent = ("O Amigo sorteado foi " + pessoaSorteada + "!");
+  componenteResultado.appendChild(componenteListaResultado);
+
+  Amigos = [];
 }
 
 function verificarTexto() {
@@ -23,8 +33,11 @@ function verificarTexto() {
 }
 
 function adicionarAmigo() {
+  componenteResultado.innerHTML = ""
+
   verificarTexto();
   Amigos.push(inputAmigo.value);
   console.log("Adicionado " + inputAmigo.value + " a lista de amigos");
-  adicionarLista(inputAmigo.value, "li")
+  inputAmigo.value = ""
+  atualizarLista()
 }
